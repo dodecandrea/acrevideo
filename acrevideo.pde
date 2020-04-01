@@ -1,6 +1,7 @@
 /*
   Source code for generating random visuals
   Used in Acre's video for the single "Quaranta"
+  Released under MIT license
   
   Dodecandrea
 */
