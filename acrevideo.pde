@@ -13,16 +13,22 @@ boolean b;
 
 //Number of photos in directory images
 int numPhotos = 38;
+int numWritings = 30;
 
 //Contain perlin shapes and images
 ArrayList<PShape> shapes;
 ArrayList<PImage> images;
 
 //For random positions, rotations and photos
-float[] x;
-float[] y;
-float[] z;
-float[] pi;
+float[] xw;
+float[] yw;
+float[] zw;
+float[] piw;
+float[] xp;
+float[] yp;
+float[] zp;
+float[] pip;
+
 int[] r;
 
 //Moving values
@@ -42,25 +48,34 @@ void setup() {
   //Initialize the arrays
   shapes = new ArrayList();
   images = new ArrayList();
-  x = new float[600];
-  y = new float[600];
-  z = new float[600];
-  pi = new float[600];
-  r = new int[(int)random(1, 10)];
+  xw = new float[numWritings];
+  yw = new float[numWritings];
+  zw = new float[numWritings];
+  piw = new float[numWritings];
+
+  r = new int[(int)random(4, 10)];
+  xp = new float[r.length];
+  yp = new float[r.length];
+  zp = new float[r.length];
+  pip = new float[r.length];
   
   //Load arrays
   for(int i = 0; i < numPhotos; i++) {
     images.add(loadImage(("images/" + (i+1) + ".jpg")));
     shapes.add(create(images.get(i), random(5/100), random(5/100)));
   }
-  for(int i = 0; i < 600; i++) {
-    x[i]= random(width);
-    y[i] = random(height);
-    z[i] = random(-1200, -400);
-    pi[i] = random(TWO_PI);
+  for(int i = 0; i < numWritings; i++) {
+    xw[i]= random(width);
+    yw[i] = random(height);
+    zw[i] = random(-1200, -400);
+    piw[i] = random(TWO_PI);
   }
   for(int i = 0; i < r.length; i++) {
     r[i] = floor(random(numPhotos));
+    xp[i]= random(-width, width);
+    yp[i] = random(height-400);
+    zp[i] = random(-1200, -400);
+    pip[i] = random(TWO_PI);
   }
   
   b = rand.nextBoolean();
@@ -77,8 +92,8 @@ void draw() {
   //Random writings in 3D space
   for(int i = 0; i < 30; i++) {
     pushMatrix();
-      translate(x[i], y[i], z[i]);
-      rotateY(y[i]);
+      translate(xw[i], yw[i], zw[i]);
+      rotateY(piw[i]);
       textSize(72); 
       text("acre", 0, 0, 0);
     popMatrix();
@@ -87,8 +102,8 @@ void draw() {
   //Random pictures in 3D space
   for(int i = 0; i < r.length; i++) {
     pushMatrix();
-      translate(x[i],y[i], z[i]);
-      rotateX(pi[i]);
+      translate(xp[i],yp[i], zp[i]);
+      rotateY(pip[i]);
       shape(shapes.get(r[i]), 0, 0);
     popMatrix();
   }
