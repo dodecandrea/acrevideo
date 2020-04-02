@@ -91,7 +91,7 @@ void draw() {
   fill(0);
   
   //Random writings in 3D space
-  for(int i = 0; i < 30; i++) {
+  for(int i = 0; i < numWritings; i++) {
     pushMatrix();
       translate(xw[i], yw[i], zw[i]);
       rotateY(piw[i]);
